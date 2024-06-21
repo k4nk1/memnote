@@ -12,10 +12,10 @@ def init(app: Flask):
 
 
 class User(db.Model):
-    id = Column('id', String(8), primary_key=True)
+    id = Column('id', String(22), primary_key=True)
 
 class Note(db.Model):
-    id = Column('id', String(8), primary_key=True)
-    author = Column('author', String(8))
+    id = Column('id', String(22), primary_key=True)
+    author = Column('author', String(22))
     title = Column('title', UnicodeText(255))
     content = Column('content', UnicodeText(65535))
