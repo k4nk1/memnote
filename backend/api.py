@@ -1,11 +1,19 @@
 from flask import Blueprint
+from json import dumps
+from models  import db, User, Note
+from utils import short_uuid
 
 class UserAPI():
     bp = Blueprint('user', __name__, url_prefix='/u')
     
     @bp.route('/', methods=['POST'])
     def add():
-        pass
+        id = short_uuid()
+        user = User()
+        user.id = id
+        db.session.add(user)
+        db.session.commit()
+        return dumps({'id': id})
 
     @bp.route('/<id>', methods=['DELETE'])
     def delete(id):
