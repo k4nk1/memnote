@@ -17,7 +17,11 @@ class UserAPI():
 
     @bp.route('/<id>', methods=['DELETE'])
     def delete(id):
-        pass
+        user = db.session.get(User, id)
+        if user is None: return '', 400
+        db.session.delete(user)
+        db.session.commit()
+        return ''
 
     @bp.route('/<id>/n', methods=['GET'])
     def get_notes(id):
