@@ -23,10 +23,6 @@ class UserAPI():
         db.session.commit()
         return ''
 
-    @bp.route('/<id>/n', methods=['GET'])
-    def get_notes(id):
-        pass
-
 class NoteAPI():
     bp = Blueprint('note', __name__, url_prefix='/n')
 
