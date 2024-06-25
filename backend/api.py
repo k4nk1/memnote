@@ -32,7 +32,9 @@ class NoteAPI():
 
     @bp.route('/<id>', methods=['GET'])
     def get(id):
-        pass
+        note: Note = db.session.get(Note, id)
+        if note is None: return dumps({'errmsg': 'Not Exist'}), 404
+        return dumps({'title': note.title, 'content': note.content})
 
     @bp.route('/', methods=['POST'])
     def add():
