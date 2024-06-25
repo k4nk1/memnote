@@ -30,6 +30,11 @@ class UserAPI():
 class NoteAPI():
     bp = Blueprint('note', __name__, url_prefix='/n')
 
+    @bp.route('/', methods=['GET'])
+    def get_by_author():
+        notes = db.session.query(Note).filter_by(author=request.args.get('u')).all()
+        return dumps({'notes':[{'id': note.id, 'title': note.title} for note in notes]})
+
     @bp.route('/<id>', methods=['GET'])
     def get(id):
         note: Note = db.session.get(Note, id)
