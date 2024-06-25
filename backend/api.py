@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request
 from json import dumps
 from models  import db, User, Note
 from utils import short_uuid
@@ -27,17 +27,23 @@ class UserAPI():
     def get_notes(id):
         pass
 
-    @bp.route('/<id>/n', methods=['POST'])
-    def add_note(id):
-        pass
-
-
 class NoteAPI():
     bp = Blueprint('note', __name__, url_prefix='/n')
 
     @bp.route('/<id>', methods=['GET'])
     def get(id):
         pass
+
+    @bp.route('/', methods=['POST'])
+    def add():
+        note = Note()
+        note.id = short_uuid()
+        note.author = request.json['u']
+        note.title = '新規ノート'
+        note.content = ''
+        db.session.add(note)
+        db.session.commit()
+        return dumps({'id': note.id})
 
     @bp.route('/<id>', methods=['PUT'])
     def put(id):
