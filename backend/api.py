@@ -61,7 +61,11 @@ class NoteAPI():
 
     @bp.route('/<id>', methods=['DELETE'])
     def delete(id):
-        pass
+        note = db.session.get(Note, id)
+        if note is None: return '', 400
+        db.session.delete(note)
+        db.session.commit()
+        return ''
 
 api_bp = Blueprint('api', __name__, url_prefix='/api')
 api_bp.register_blueprint(UserAPI.bp)
