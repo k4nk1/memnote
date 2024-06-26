@@ -6,7 +6,7 @@ from utils import short_uuid
 class UserAPI():
     bp = Blueprint('user', __name__, url_prefix='/u')
     
-    @bp.route('/', methods=['POST'])
+    @bp.route('', methods=['POST'])
     def add():
         id = short_uuid()
         user = User()
@@ -26,7 +26,7 @@ class UserAPI():
 class NoteAPI():
     bp = Blueprint('note', __name__, url_prefix='/n')
 
-    @bp.route('/', methods=['GET'])
+    @bp.route('', methods=['GET'])
     def get_by_author():
         notes = db.session.query(Note).filter_by(author=request.args.get('u')).all()
         return dumps({'notes':[{'id': note.id, 'title': note.title} for note in notes]})
@@ -37,7 +37,7 @@ class NoteAPI():
         if note is None: return dumps({'errmsg': 'Not Exist'}), 404
         return dumps({'title': note.title, 'content': note.content})
 
-    @bp.route('/', methods=['POST'])
+    @bp.route('', methods=['POST'])
     def add():
         note = Note()
         note.id = short_uuid()
