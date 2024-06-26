@@ -50,19 +50,21 @@ class NoteAPI():
 
     @bp.route('/<id>', methods=['PUT'])
     def put(id):
-        json = request.json
-        keys = list(json.keys())
-        if len(keys) == 0: return '', 400
+        json: dict = request.json
         note = db.session.get(Note, id)
-        if 't' in keys: note.title = json['t']
-        if 'c' in keys: note.content = json['c']
+        if note is None: return dumps({'errmsg': 'Not Exist'}), 404
+        if json.get('u') != note.author: return dumps({'errmsg': 'Unauthorized'}), 401
+        if json.get('t') is not None: note.title = json.get('t')
+        if json.get('c') is not None: note.content = json.get('c')
         db.session.commit()
         return ''
 
     @bp.route('/<id>', methods=['DELETE'])
     def delete(id):
+        json: dict = request.json
         note = db.session.get(Note, id)
-        if note is None: return '', 400
+        if note is None: return dumps({'errmsg': 'Not Exist'}), 404
+        if json.get('u') != note.author: return dumps({'errmsg': 'Unauthorized'}), 401
         db.session.delete(note)
         db.session.commit()
         return ''
