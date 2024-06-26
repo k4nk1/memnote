@@ -22,14 +22,16 @@ class UserAPI():
         db.session.delete(user)
         db.session.commit()
         return ''
+    
+    @bp.route('/<id>/n', methods=['GET'])
+    def get_mynotes(id):
+        user = db.session.get(User, id)
+        if user is None: return dumps({'errmsg': 'Not Exist'}), 404
+        notes = user.notes
+        return dumps({'notes':[{'id': note.id, 'title': note.title} for note in notes]})
 
 class NoteAPI():
     bp = Blueprint('note', __name__, url_prefix='/n')
-
-    @bp.route('', methods=['GET'])
-    def get_by_author():
-        notes = db.session.query(Note).filter_by(author=request.args.get('u')).all()
-        return dumps({'notes':[{'id': note.id, 'title': note.title} for note in notes]})
 
     @bp.route('/<id>', methods=['GET'])
     def get(id):
@@ -39,12 +41,18 @@ class NoteAPI():
 
     @bp.route('', methods=['POST'])
     def add():
+        user_id = request.json.get('u')
+        if user_id is None: return dumps({'errmsg': 'Unauthorized'}), 401
+        user = db.session.get(User, user_id)
+        if user is None: return dumps({'errmsg': 'Not Exist'}), 404
         note = Note()
         note.id = short_uuid()
-        note.author = request.json['u']
+        note.author = user
+        note.author_id = user_id
         note.title = '新規ノート'
         note.content = ''
         db.session.add(note)
+        user.notes.append(note)
         db.session.commit()
         return dumps({'id': note.id})
 
