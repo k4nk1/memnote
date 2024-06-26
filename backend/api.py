@@ -50,7 +50,14 @@ class NoteAPI():
 
     @bp.route('/<id>', methods=['PUT'])
     def put(id):
-        pass
+        json = request.json
+        keys = list(json.keys())
+        if len(keys) == 0: return '', 400
+        note = db.session.get(Note, id)
+        if 't' in keys: note.title = json['t']
+        if 'c' in keys: note.content = json['c']
+        db.session.commit()
+        return ''
 
     @bp.route('/<id>', methods=['DELETE'])
     def delete(id):
