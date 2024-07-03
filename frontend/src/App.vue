@@ -6,7 +6,9 @@ import Footer from './components/Footer.vue';
 <template>
   <v-app>
     <Header />
-    <div style="min-height: 100vh;"></div>
+    <v-main style="min-height: 100vh;">
+      <router-view />
+    </v-main>
     <Footer />
   </v-app>
 </template>
