@@ -6,7 +6,7 @@ import { useRouter } from 'vue-router';
 const APIs = useAPI(await useUID());
 const nid = await APIs.addNote();
 const router = useRouter();
-router.push({ name: 'Note', params: { id: nid}});
+router.replace({ name: 'Note', params: { id: nid}});
 </script>
 
 <template>
