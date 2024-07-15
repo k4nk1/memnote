@@ -61,7 +61,7 @@ class NoteAPI():
         json: dict = request.json
         note = db.session.get(Note, id)
         if note is None: return dumps({'errmsg': 'Not Exist'}), 404
-        if json.get('u') != note.author: return dumps({'errmsg': 'Unauthorized'}), 401
+        if json.get('u') != note.author_id: return dumps({'errmsg': 'Unauthorized'}), 401
         if json.get('t') is not None: note.title = json.get('t')
         if json.get('c') is not None: note.content = json.get('c')
         db.session.commit()
@@ -72,7 +72,7 @@ class NoteAPI():
         json: dict = request.json
         note = db.session.get(Note, id)
         if note is None: return dumps({'errmsg': 'Not Exist'}), 404
-        if json.get('u') != note.author: return dumps({'errmsg': 'Unauthorized'}), 401
+        if json.get('u') != note.author_id: return dumps({'errmsg': 'Unauthorized'}), 401
         db.session.delete(note)
         db.session.commit()
         return ''
