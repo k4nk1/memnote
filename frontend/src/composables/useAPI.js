@@ -1,14 +1,14 @@
 export const useAPI = (uid) => {
     const domain = 'http://localhost:5000/'
 
-    const _fetch = async (path, method, data) => {
+    const _fetch = async (path, method, body = null) => {
         if(method === 'GET'){
             return await fetch(domain + 'api/' + path);
         }else{
-            if(data == null){
+            if(body == null){
                 return await fetch(domain + 'api/' + path, {'method': method});
             }
-            return await fetch(domain + 'api/' + path, {'method': method, headers: {'Content-Type': 'application/json'}, data: data}); 
+            return await fetch(domain + 'api/' + path, {'method': method, 'headers': {'Content-Type': 'application/json'}, 'body': JSON.stringify(body)}); 
         }
     }
 
