@@ -1,8 +1,3 @@
-<script setup>
-import { ref } from 'vue';
-const has_id = ref(true);
-</script>
-
 <template>
     <v-app-bar>
         <v-app-bar-title>
@@ -10,10 +5,8 @@ const has_id = ref(true);
                 memnote
             </router-link>
         </v-app-bar-title>
-        <router-link class="app-bar-link" to="/notes/new">新規ノート</router-link>
-        <template v-if="has_id">
-            <router-link class="app-bar-link" to="/mynotes">マイノート</router-link>
-        </template>
+        <router-link class="app-bar-link" to="/newnote">新規ノート</router-link>
+        <router-link class="app-bar-link" to="/mynotes">マイノート</router-link>
     </v-app-bar>
 </template>
 
