@@ -32,5 +32,14 @@ export const useAPI = (uid) => {
         const res = await _fetch('n', 'POST', {'u': uid});
         return (await res.json()).id;
     }
-    return { uid, addUser, deleteUser, getMyNotes, getNote, addNote };
+    const renameNote = async (nid, name) => {
+        _fetch('n/' + nid, 'PUT', {'u': uid, 't': name});
+    }
+    const editNote = async (nid, content) => {
+        _fetch('n/' + nid, 'PUT', {'u': uid, 'c': content});
+    }
+    const deleteNote = async (nid) => {
+        _fetch('n/' + nid, 'DELETE', {'u': uid});
+    }
+    return { uid, addUser, deleteUser, getMyNotes, getNote, addNote, renameNote, editNote, deleteNote };
 }
