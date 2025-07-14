@@ -1,5 +1,5 @@
 export const useAPI = (uid) => {
-    const domain = 'http://localhost:5000/'
+    const domain = 'http://127.0.0.1:5000/'
 
     const _fetch = async (path, method, body = null) => {
         if(method === 'GET'){
@@ -35,8 +35,8 @@ export const useAPI = (uid) => {
     const renameNote = async (nid, name) => {
         _fetch('n/' + nid, 'PUT', {'u': uid, 't': name});
     }
-    const editNote = async (nid, content) => {
-        _fetch('n/' + nid, 'PUT', {'u': uid, 'c': content});
+    const editNote = async (nid, title, content) => {
+        _fetch('n/' + nid, 'PUT', {'u': uid, 't': title, 'c': content});
     }
     const deleteNote = async (nid) => {
         _fetch('n/' + nid, 'DELETE', {'u': uid});
