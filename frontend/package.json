@@ -4,12 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host",
     "build": "vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "quill": "^2.0.2",
+    "@vueup/vue-quill": "^1.2.0",
+    "quill-markdown-shortcuts": "^0.0.10",
     "vue": "^3.4.29",
     "vue-router": "^4.4.0",
     "vuetify": "^3.6.10"
