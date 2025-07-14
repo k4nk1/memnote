@@ -1,7 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Index from '../components/Index.vue';
-import NewNote from '../components/newNote.vue';
-import MyNotes from '../components/MyNotes.vue';
+import Index from '../pages/Index.vue';
+import NewNote from '../pages/newNote.vue';
+import MyNotes from '../pages/MyNotes.vue';
+import Edit from '../pages/Edit.vue';
+import Memorize from '../pages/Memorize.vue';
 
 const routes = [
     {
@@ -18,6 +20,16 @@ const routes = [
         path: '/mynotes',
         name: 'MyNotes',
         component: MyNotes
+    },
+    {
+        path: '/notes/:nid/edit',
+        name: 'Edit',
+        component: Edit
+    },
+    {
+        path: '/notes/:nid/memorize',
+        name: 'Memorize',
+        component: Memorize
     }
 ]
 
